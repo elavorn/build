@@ -26,30 +26,30 @@
              <!-- These are the notifications that are displayed to the user through pop-ups if the above JS files does not exist in the same directory-->
             if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
             if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
-            if (typeof facebookConnectPlugin == 'undefined') alert('facebookConnectPlugin variable does not exist. Check that you have included the Facebook JS SDK file.');
+            if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
             
-            facebookConnectPlugin.Event.subscribe('auth.login', function(response) {
+            FB.Event.subscribe('auth.login', function(response) {
                                alert('auth.login event');
                                });
             
-            facebookConnectPlugin.Event.subscribe('auth.logout', function(response) {
+            FB.Event.subscribe('auth.logout', function(response) {
                                alert('auth.logout event');
                                });
             
-            facebookConnectPlugin.Event.subscribe('auth.sessionChange', function(response) {
+            FB.Event.subscribe('auth.sessionChange', function(response) {
                                alert('auth.sessionChange event');
                                });
             
-            facebookConnectPlugin.Event.subscribe('auth.statusChange', function(response) {
+            FB.Event.subscribe('auth.statusChange', function(response) {
                                alert('auth.statusChange event');
                                });
             
             /*function getSession() {
-                alert("session: " + JSON.stringify(facebookConnectPlugin.getSession()));
+                alert("session: " + JSON.stringify(FB.getSession()));
             }
             */
             function getLoginStatus() {
-                facebookConnectPlugin.getLoginStatus(function(response) {
+                FB.getLoginStatus(function(response) {
                                   if (response.status == 'connected') {
                                   alert('logged in');
                                   } else {
@@ -60,13 +60,13 @@
             var friendIDs = [];
 			var fdata;
             function me() {
-                facebookConnectPlugin.api('/me/friends', { fields: 'id, name, picture' },  function(response) {
+                FB.api('/me/friends', { fields: 'id, name, picture' },  function(response) {
                        if (response.error) {
                        alert(JSON.stringify(response.error));
                        } else {
                        var data = document.getElementById('data');
 					   fdata=response.data;
-					   console.log("fdata: "+fdata);
+					   alert("fdata: "+fdata);
                        response.data.forEach(function(item) {
                                              var d = document.createElement('div');
                                              d.innerHTML = "<img src="+item.picture+"/>"+item.name;
@@ -74,7 +74,7 @@
                                              });
                        }
 					var friends = response.data;
-					console.log(friends.length); 
+					alert(friends.length); 
 					for (var k = 0; k < friends.length && k < 200; k++) {
 				        var friend = friends[k];
 				        var index = 1;
@@ -82,18 +82,18 @@
 				        friendIDs[k] = friend.id;
 				        //friendsInfo[k] = friend;
 					}
-					console.log("friendId's: "+friendIDs);
+					alert("friendId's: "+friendIDs);
                        });
             }
             
             function logout() {
-                facebookConnectPlugin.logout(function(response) {
+                FB.logout(function(response) {
                           alert('logged out');
                           });
             }
             
             function login() {
-                facebookConnectPlugin.login(
+                FB.login(
                          function(response) {
                          if (response.session) {
                          alert('logged in');
@@ -107,7 +107,7 @@
 			
 			
 			function facebookWallPost() {
-			    console.log('Debug 1');
+			    alert('Debug 1');
 				var params = {
 				    method: 'feed',
 				    name: 'Facebook Dialogs',
@@ -116,8 +116,8 @@
 				    caption: 'Reference Documentation',
 				    description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
 				  };
-				console.log(params);
-			    facebookConnectPlugin.ui(params, function(obj) { console.log(obj);});
+				alert(params);
+			    FB.ui(params, function(obj) { alert(obj);});
 			}
             
 			function publishStoryFriend() {
@@ -127,8 +127,8 @@
 				if (friendID == undefined){
 					alert('please click the me button to get a list of friends first');
 				}else{
-			    	console.log("friend id: " + friendID );
-			        console.log('Opening a dialog for friendID: ', friendID);
+			    	alert("friend id: " + friendID );
+			        alert('Opening a dialog for friendID: ', friendID);
 			        var params = {
 			        	method: 'feed',
 			            to: friendID.toString(),
@@ -138,14 +138,14 @@
 			            caption: 'Reference Documentation',
 			            description: 'Dialogs provide a simple, consistent interface for applications to interface with users.'
 			     	};
-					facebookConnectPlugin.ui(params, function(obj) { console.log(obj);});
+					FB.ui(params, function(obj) { alert(obj);});
 			    }
 			}
             
             document.addEventListener('deviceready', function() {
                                       try {
                                       alert('Device is ready! Make sure you set your app_id below this alert.');
-                                      facebookConnectPlugin.init({ appId: "283483805193925", nativeInterface: CDV.facebookConnectPlugin, useCachedDialogs: false });
+                                      FB.init({ appId: "283483805193925", nativeInterface: CDV.FB, useCachedDialogs: false });
                                       document.getElementById('data').innerHTML = "";
                                       } catch (e) {
                                       alert(e);
