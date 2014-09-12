@@ -7,7 +7,7 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>PhoneGap Example</name>
+    <name>Easyapp</name>
 
     <description>
       An example for phonegap build docs. 
@@ -19,7 +19,7 @@
 
     <!-- We'll include the Barcode plugin as an example -->
     <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
-    <param name="APP_ID" value="..." />
-    <param name="APP_NAME" value="..." />
+    <param name="APP_ID" value="283483805193925" />
+    <param name="APP_NAME" value="Easyapp" />
 </gap:plugin>
 </widget>
